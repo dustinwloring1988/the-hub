@@ -17,54 +17,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Atom, Brain, Wand2, FileAudio, ExternalLink } from "lucide-react"
 import Link from "next/link"
-import { Resend } from 'resend' // Ensure correct import
-
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY) // Instantiate as a class
-  : null; // Handle the case where the API key is missing
-
-if (!resend) {
-  console.error("Missing API key. Please set the RESEND_API_KEY environment variable.");
-  // Optionally, you can throw an error or handle it as needed
-}
 
 export default function LandingPage() {
-  const [isContactOpen, setIsContactOpen] = useState(false)
   const projectsRef = useRef<HTMLElement>(null)
-  const contactRef = useRef<HTMLElement>(null) // Reference for the contact section
 
   const scrollToProjects = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     projectsRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const scrollToContact = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    contactRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const name = formData.get('name')
-    const email = formData.get('email')
-    const message = formData.get('message')
-    try {
-      if (!resend) {
-        throw new Error("Resend client is not initialized");
-      }
-      await resend.emails.send({
-        from: 'contact@useme.cc', // Add a 'from' field
-        to: 'recipient@example.com', // Replace with the recipient's email
-        subject: `New message from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`, // Add a 'text' field
-        html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
-      })
-      alert("Thank you for your message! We will get back to you shortly.")
-    } catch (error) {
-      console.error("Error sending email:", error)
-      alert("There was an error sending your message. Please try again later.")
-    }
   }
 
   return (
@@ -77,9 +36,6 @@ export default function LandingPage() {
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Button variant="ghost" className="text-sm font-medium" onClick={scrollToProjects}>
             Projects
-          </Button>
-          <Button variant="ghost" className="text-sm font-medium" onClick={scrollToContact}>
-            Contact
           </Button>
         </nav>
       </header>
@@ -156,35 +112,6 @@ export default function LandingPage() {
                 </Card>
               </Link>
             </div>
-          </div>
-        </section>
-        <section ref={contactRef} className="w-full py-12 md:py-24 lg:py-32 bg-background flex justify-center">
-          <div className="container px-4 md:px-6 flex flex-col items-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Contact Us</h2>
-            <p className="text-gray-200 mb-4">We'd love to hear from you! Please fill out the form below and we'll get back to you as soon as possible.</p>
-            <form onSubmit={handleSubmit} className="w-full max-w-lg">
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input id="name" name="name" className="col-span-3 border rounded-md p-2" required />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="email" className="text-right">
-                    Email
-                  </Label>
-                  <Input id="email" name="email" type="email" className="col-span-3 border rounded-md p-2" required />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="message" className="text-right">
-                    Message
-                  </Label>
-                  <Textarea id="message" name="message" className="col-span-3 border rounded-md p-2" required />
-                </div>
-              </div>
-              <Button type="submit" className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/80 transition duration-200">Send Message</Button>
-            </form>
           </div>
         </section>
         <footer className="flex flex-col gap-2 sm:flex-row py-6 w-screen shrink-0 items-center px-4 md:px-6 border-t bg-gray-800 text-white">
