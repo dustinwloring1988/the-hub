@@ -19,7 +19,14 @@ import { Atom, Brain, Wand2, FileAudio, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { Resend } from 'resend' // Ensure correct import
 
-const resend = new Resend(process.env.RESEND_API_KEY) // Instantiate as a class
+const resend = process.env.RESEND_API_KEY 
+  ? new Resend(process.env.RESEND_API_KEY) // Instantiate as a class
+  : null; // Handle the case where the API key is missing
+
+if (!resend) {
+  console.error("Missing API key. Please set the RESEND_API_KEY environment variable.");
+  // Optionally, you can throw an error or handle it as needed
+}
 
 export default function LandingPage() {
   const [isContactOpen, setIsContactOpen] = useState(false)
@@ -43,10 +50,14 @@ export default function LandingPage() {
     const email = formData.get('email')
     const message = formData.get('message')
     try {
+      if (!resend) {
+        throw new Error("Resend client is not initialized");
+      }
       await resend.emails.send({
-        from: 'your_email@example.com', // Replace with your email
+        from: 'contact@useme.cc', // Add a 'from' field
         to: 'recipient@example.com', // Replace with the recipient's email
         subject: `New message from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`, // Add a 'text' field
         html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
       })
       alert("Thank you for your message! We will get back to you shortly.")
