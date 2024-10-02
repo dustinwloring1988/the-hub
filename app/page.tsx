@@ -63,7 +63,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6 flex flex-col items-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Our AI Projects</h2>
             <div className="grid gap-6 lg:grid-cols-3">
-              <Link href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="group">
+              <Link href="https://jailbreak.surgetech.org/" target="_blank" rel="noopener noreferrer" className="group">
                 <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg">
                   <CardHeader>
                     <Brain className="w-8 h-8 mb-2 text-primary" />
@@ -79,7 +79,7 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="group">
+              <Link href="https://imageai.surgetech.org/" target="_blank" rel="noopener noreferrer" className="group">
                 <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg">
                   <CardHeader>
                     <Wand2 className="w-8 h-8 mb-2 text-primary" />
@@ -95,7 +95,7 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
               </Link>
-              <Link href="https://www.google.com" target="_blank" rel="noopener noreferrer" className="group">
+              <Link href="https://whisper.surgetech.org/" target="_blank" rel="noopener noreferrer" className="group">
                 <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg">
                   <CardHeader>
                     <FileAudio className="w-8 h-8 mb-2 text-primary" />
