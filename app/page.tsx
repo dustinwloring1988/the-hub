@@ -111,6 +111,22 @@ export default function LandingPage() {
                   </CardContent>
                 </Card>
               </Link>
+              <Link href="https://content.surgetech.org/" target="_blank" rel="noopener noreferrer" className="group">
+                <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg">
+                  <CardHeader>
+                    <Atom className="w-8 h-8 mb-2 text-primary" />
+                    <CardTitle>Content Creation for Anyone</CardTitle>
+                    <CardDescription>Empower anyone with tools for content creation and management</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="mb-4">Explore our platform designed for anyone to streamline content creation and enhance their online presence.</p>
+                    <div className="flex items-center text-primary">
+                      <span className="mr-2">Visit Site</span>
+                      <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
           </div>
         </section>
